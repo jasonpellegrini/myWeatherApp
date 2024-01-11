@@ -8,6 +8,10 @@ const [input, setInput] = useState("");
 const [loading, setLoading] = useState(false);
 const [data, setData] = useState([]);
 
+/*const fetchDataHandler = React.useCallback(() => {
+
+}, []);*/
+
   return (
     <View style={styles.container}>
       <ImageBackground source={require('./assets/4knature.jpg')}
@@ -18,7 +22,8 @@ const [data, setData] = useState([]);
           value={input}
           placeholderTextColor={'#000'}
           style={styles.textInput}
-          onSubmitEditing={fetchDataHandler}/>
+          //onSubmitEditing={fetchDataHandler}
+          />
         </View>
 
       
@@ -41,4 +46,16 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
+
+  textInput: {
+    borderBottomWidth: 3,
+    padding: 5,
+    paddingVertical: 20,
+    marginVertical: 100,
+    marginHorizontal: 10,
+    backgroundColor: "#fff",
+    fontSize: 19,
+    borderRadius: 16,
+    borderBottomColor: "#df8e00",
+  }
 });
