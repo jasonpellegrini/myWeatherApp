@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, ImageBackground, TextInput, ActivityIndicator, View } from 'react-native';
-import React, {useState, useCallBack} from 'react';
+import React, {useState, useCallBack, useEffect} from 'react';
 import axios from 'axios';
 
 export default function App() {
@@ -29,6 +29,16 @@ const fetchDataHandler = async () => {
   }
 };
 
+useEffect(() => {
+  if (data) {
+    console.log(data);
+  }
+}, [data]);
+
+const convertKelvinToFahrenheit = (kelvin) => {
+  return ((kelvin - 273.15) * 9/5 + 32).toFixed(2);
+};
+
   return (
     <View style={styles.container}>
       <ImageBackground source={require('./assets/4knature.jpg')}
@@ -41,6 +51,13 @@ const fetchDataHandler = async () => {
           style={styles.textInput}
           onSubmitEditing={fetchDataHandler}
           />
+
+        {data && (
+          <View>
+            <Text style={styles.weatherText}>{`Temperature: ${convertKelvinToFahrenheit(data.main.temp)}°F`}</Text>
+            <Text style={styles.weatherText}>{`Weather: ${data.weather[0].description}`}</Text>
+          </View>
+        )}
 
         </View>
           {loading && 
@@ -76,5 +93,11 @@ const styles = StyleSheet.create({
     fontSize: 19,
     borderRadius: 16,
     borderBottomColor: "#df8e00",
-  }
+  },
+
+  weatherText: {
+    fontSize: 20,
+    color: '#fff',
+    marginVertical: 10,
+  },
 });
