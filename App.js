@@ -43,10 +43,26 @@ const capitalizeFirstLetter = (str) => {
   return str.replace(/\b\w/g, (char) => char.toUpperCase());
 };
 
+const determineBackgroundImage = () => {
+  if (data.weather && data.weather.length > 0 && data.weather[0].description) {
+    const description = data.weather[0].description.toLowerCase();
+    if (description.includes('snow')) {
+      return require('./assets/snowy.jpg');
+    } else if (description.includes('rain')) {
+      return require('./assets/rainy.png');
+    }
+  }
+  // Default background if no specific conditions are met
+  return require('./assets/4knature.jpg');
+};
+
   return (
     <View style={styles.container}>
-      <ImageBackground source={require('./assets/4knature.jpg')}
-      resizeMode="cover" style={styles.image}> 
+      <ImageBackground
+        source={determineBackgroundImage()}
+        resizeMode="cover"
+        style={styles.image}
+      > 
         <View>
           <TextInput placeholder='Enter city name...'
           onChangeText={text=>setInput(text)}
