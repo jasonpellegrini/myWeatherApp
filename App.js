@@ -36,7 +36,11 @@ useEffect(() => {
 }, [data]);
 
 const convertKelvinToFahrenheit = (kelvin) => {
-  return ((kelvin - 273.15) * 9/5 + 32).toFixed(2);
+  return ((kelvin - 273.15) * 9/5 + 32).toFixed(0);
+};
+
+const capitalizeFirstLetter = (str) => {
+  return str.replace(/\b\w/g, (char) => char.toUpperCase());
 };
 
   return (
@@ -52,10 +56,11 @@ const convertKelvinToFahrenheit = (kelvin) => {
           onSubmitEditing={fetchDataHandler}
           />
 
-        {data && (
-          <View>
-            <Text style={styles.weatherText}>{`Temperature: ${convertKelvinToFahrenheit(data.main.temp)}°F`}</Text>
-            <Text style={styles.weatherText}>{`Weather: ${data.weather[0].description}`}</Text>
+        {data.main && (
+          <View style={styles.infoContainer}>
+            <Text style={styles.titleText}>{`${data.name}, ${data.sys.country}`}</Text>
+            <Text style={styles.tempText}>{`${convertKelvinToFahrenheit(data.main.temp)}°F`}</Text>
+            <Text style={styles.weatherText}>{`${capitalizeFirstLetter(data.weather[0].description)}`}</Text>
           </View>
         )}
 
@@ -84,20 +89,41 @@ const styles = StyleSheet.create({
   },
 
   textInput: {
-    borderBottomWidth: 3,
+    borderWidth: 3,
     padding: 5,
     paddingVertical: 20,
     marginVertical: 100,
     marginHorizontal: 10,
     backgroundColor: "#fff",
     fontSize: 19,
-    borderRadius: 16,
-    borderBottomColor: "#df8e00",
+    borderRadius: 30,
+    borderColor: 'rgba(200, 200, 200, 0.7)',
   },
 
   weatherText: {
-    fontSize: 20,
+    fontSize: 30,
     color: '#fff',
     marginVertical: 10,
+  },
+
+  titleText: {
+    fontSize: 40,
+    color: '#fff',
+    marginVertical: 10,
+    fontWeight: '600',
+  },
+
+  tempText: {
+    fontSize: 80,
+    color: '#fff',
+    marginVertical: 10,
+    fontWeight: '200',
+  },
+
+  infoContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(200, 200, 200, 0.7)',
+    padding: 20,
   },
 });
