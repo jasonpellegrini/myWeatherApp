@@ -52,7 +52,6 @@ const determineBackgroundImage = () => {
       return require('./assets/rainy.png');
     }
   }
-  // Default background if no specific conditions are met
   return require('./assets/4knature.jpg');
 };
 
